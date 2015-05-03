@@ -63,8 +63,7 @@ void *connection_handler_escucha(void *socket_desc)
 
     while( (read_size = recv(sock , client_message , 100 , 0)) > 0 )
     {
-    	printf ("\n");
-    	printf ("%s\n",client_message);
+    	printf ("%s",client_message);
     }
     if(read_size == 0)
     {
