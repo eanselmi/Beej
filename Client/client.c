@@ -2,13 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/time.h>
-#include <sys/types.h>
 #include <unistd.h>
-#include <time.h>
 #include <pthread.h>
 
 #define PORT 8888
@@ -32,6 +27,7 @@ int main (void){
 		perror ("connect");
 		exit (1);
 	}
+	printf ("Cliente conectado, ya puede empezar a chatear\n");
 	pthread_t escucha;
 	new_sock = malloc(1);
 	*new_sock = sockfd;
@@ -44,9 +40,6 @@ int main (void){
 		printf ("Cliente: ");
 		fgets (texto,100,stdin);
 		fflush (stdin);
-		
-		//printf ("El texto ingresado es: %s\n",texto);
-		//printf ("La longitud del texto es: %d\n", strlen(texto));
 		if (send(sockfd, texto, 100, 0) == -1)
 				perror ("send");
 	}
@@ -56,12 +49,10 @@ int main (void){
 
 void *connection_handler_escucha(void *socket_desc)
 {
-    //Obtengo el descriptor del socket que pase por parametro
     int sock = *(int*)socket_desc;
     int read_size;
     char client_message[100];
 
-    //Recibir mensaje del cliente
     while( (read_size = recv(sock , client_message , 100 , 0)) > 0 )
     {
         printf ("\n");
@@ -76,7 +67,6 @@ void *connection_handler_escucha(void *socket_desc)
     {
         perror("recv failed");
     }
-    //Libero el puntero al descriptor del socket
     free(socket_desc);
     return 0;
 }
