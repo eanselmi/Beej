@@ -37,7 +37,6 @@ int main (void){
 	    return 1;
 	}
 	while (1){
-		printf ("Cliente: ");
 		fgets (texto,100,stdin);
 		fflush (stdin);
 		if (send(sockfd, texto, 100, 0) == -1)
@@ -55,8 +54,7 @@ void *connection_handler_escucha(void *socket_desc)
 
     while( (read_size = recv(sock , client_message , 100 , 0)) > 0 )
     {
-        printf ("\n");
-    	printf ("Server: %s\n",client_message);
+        printf ("%s",client_message);
     }
     if(read_size == 0)
     {
