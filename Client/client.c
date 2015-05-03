@@ -10,11 +10,11 @@
 #include <unistd.h>
 #include <time.h>
 
-#define PORT 4000
+#define PORT 8888
 
 int main (void){
 	int sockfd;
-	char texto[200];
+	char texto[100];
 	struct sockaddr_in server;
 	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
 		perror ("socket");
@@ -22,7 +22,7 @@ int main (void){
 	}
 	memset(&server, 0, sizeof(server));
 	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = inet_addr("172.16.0.115");
+	server.sin_addr.s_addr = inet_addr("172.16.0.112"); //Aca pongan la ip que tenga el server
 	server.sin_port = htons(PORT);
 
 	if (connect(sockfd, (struct sockaddr *)&server,sizeof(struct sockaddr)) == -1) {
@@ -30,12 +30,13 @@ int main (void){
 		exit (1);
 	}
 	while (1){
-		strcpy (texto,"");
-		printf ("Ingrese texto a enviar: ");
-		//scanf ("%[^\n]" , texto);
-		scanf ("%s" , texto);
-		fflush(stdin);
-		if (send(sockfd, texto, strlen(texto), 0) == -1)
+		printf ("Cliente: ");
+		fgets (texto,100,stdin);
+		fflush (stdin);
+		printf ("\n");
+		//printf ("El texto ingresado es: %s\n",texto);
+		//printf ("La longitud del texto es: %d\n", strlen(texto));
+		if (send(sockfd, texto, 100, 0) == -1)
 				perror ("send");
 	}
 	close (sockfd);
