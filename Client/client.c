@@ -33,7 +33,7 @@ int main (void){
 		printf ("Cliente: ");
 		fgets (texto,100,stdin);
 		fflush (stdin);
-		printf ("\n");
+		
 		//printf ("El texto ingresado es: %s\n",texto);
 		//printf ("La longitud del texto es: %d\n", strlen(texto));
 		if (send(sockfd, texto, 100, 0) == -1)
