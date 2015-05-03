@@ -72,7 +72,8 @@ void *connection_handler_escucha(void *socket_desc)
     //Recibir mensaje del cliente
     while( (read_size = recv(sock , client_message , 100 , 0)) > 0 )
     {
-        printf ("Cliente: %s\n",client_message);
+    	printf ("\n");
+    	printf ("Cliente: %s\n",client_message);
     }
     if(read_size == 0)
     {
