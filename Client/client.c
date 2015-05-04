@@ -10,19 +10,18 @@
 
 void *connection_handler_escucha(void *);
 
-int main (void){
+int main (int argc , char *argv[]){
 	int sockfd, *new_sock;
 	char texto[100];
 	struct sockaddr_in server;
-	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-		perror ("socket");
-		exit (1);
-	}
 	memset(&server, 0, sizeof(server));
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = inet_addr("172.16.0.112"); //Aca pongan la ip que tenga el server
 	server.sin_port = htons(PORT);
-
+	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+		perror ("socket");
+		exit (1);
+	}
 	if (connect(sockfd, (struct sockaddr *)&server,sizeof(struct sockaddr)) == -1) {
 		perror ("connect");
 		exit (1);
