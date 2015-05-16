@@ -16,7 +16,7 @@ int main(int argc , char *argv[])
     char texto[100]; //No se pueden mandar mensajes de mas de 99 caracteres
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons( 8888 );
+    server.sin_port = htons( 5555 );
     if ((socket_desc = socket(AF_INET , SOCK_STREAM , 0)) == -1) {
         perror("socket");
         exit (-1);
